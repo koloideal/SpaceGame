@@ -3,6 +3,7 @@ import sys
 from bullet import Bullet
 from ino import Ino
 import time
+from database import push_score
 
 
 def events(screen, gun, bullets):
@@ -113,4 +114,6 @@ def check_high_score(stats, sc):
         sc.image_high_score()
         with open('highscore.txt', 'w') as f:
             f.write(str(stats.high_score))
+            push_score(stats.high_score)
+
 
