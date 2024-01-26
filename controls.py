@@ -30,8 +30,9 @@ def events(screen, gun, bullets):
                 gun.mright = False
 
 
-def update(bg_color, screen, gun, inos, bullets):
+def update(bg_color, screen, stats, sc, gun, inos, bullets):
     screen.fill(bg_color)
+    sc.show_score()
     for bullet in bullets.sprites():
         bullet.draw_bullet()
 
@@ -40,13 +41,18 @@ def update(bg_color, screen, gun, inos, bullets):
     pygame.display.flip()
 
 
-def update_bullets(screen, inos, bullets):
+def update_bullets(screen, stats, sc, inos, bullets):
     """обновлять позиции пуль"""
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
     collision = pygame.sprite.groupcollide(bullets, inos, True, True)
+    if collision:
+        for ino in collision.values():
+            stats.score += 10 * len(ino)
+        sc.image_score()
+        check_high_score(stats, sc)
     if len(inos) == 0:
         bullets.empty()
         create_army(screen, inos)
@@ -93,4 +99,11 @@ def inos_check(stats, screen, gun, inos, bullets):
         if ino.rect.bottom >= screen_rect.bottom:
             gun_kill(stats, screen, gun, inos, bullets)
             break
+
+def check_high_score(stats, sc):
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sc.image_high_score()
+        with open('highscore.txt', 'w') as f:
+            f.write(str(stats.high_score))
 
