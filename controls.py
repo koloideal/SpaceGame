@@ -53,6 +53,7 @@ def update_bullets(screen, stats, sc, inos, bullets):
             stats.score += 10 * len(ino)
         sc.image_score()
         check_high_score(stats, sc)
+        sc.image_guns()
     if len(inos) == 0:
         bullets.empty()
         create_army(screen, inos)
@@ -69,36 +70,42 @@ def create_army(screen, inos):
     for row_number in range(number_ino_y - 10):
         for ino_num in range(number_ino_x):
             ino = Ino(screen)
-            ino.x = ino_width + 2 * (ino_width * ino_num)
+            ino.x = ino_width + 1.3 * (ino_width * ino_num)
             ino.y = ino_height + 1.5 * (ino_height * row_number)
             ino.rect.x = ino.x
             ino.rect.y = ino.rect.height + ino.rect.height * row_number
             inos.add(ino)
 
 
-def update_inos(stats, screen, gun, inos, bullets):
+def update_inos(stats, screen, sc, gun, inos, bullets):
     inos.update()
     if pygame.sprite.spritecollideany(gun, inos):
-        gun_kill(stats, screen, gun, inos, bullets)
+        gun_kill(stats, screen, sc, gun, inos, bullets)
 
-    inos_check(stats, screen, gun, inos, bullets)
-
-
-def gun_kill(stats, screen, gun, inos, bullets):
-    stats.guns_left -= 1
-    inos.empty()
-    bullets.empty()
-    create_army(screen, inos)
-    gun.create_gun()
-    time.sleep(1)
+    inos_check(stats, screen, sc,  gun, inos, bullets)
 
 
-def inos_check(stats, screen, gun, inos, bullets):
+def gun_kill(stats, screen, sc,  gun, inos, bullets):
+    if stats.guns_left - 1 > 0:
+        stats.guns_left -= 1
+        sc.image_guns()
+        inos.empty()
+        bullets.empty()
+        create_army(screen, inos)
+        gun.create_gun()
+        time.sleep(1)
+    else:
+        stats.run_game = False
+        sys.exit()
+
+
+def inos_check(stats, screen, sc, gun, inos, bullets):
     screen_rect = screen.get_rect()
     for ino in inos.sprites():
         if ino.rect.bottom >= screen_rect.bottom:
-            gun_kill(stats, screen, gun, inos, bullets)
+            gun_kill(stats, screen, sc,  gun, inos, bullets)
             break
+
 
 def check_high_score(stats, sc):
     if stats.score > stats.high_score:

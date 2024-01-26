@@ -8,6 +8,6 @@ class Stats():
             self.high_score = int(f.readline())
 
     def reset_stats(self):
-        self.guns_left = 0
+        self.guns_left = 2
         self.score = 0
 

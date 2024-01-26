@@ -7,7 +7,7 @@ class Ino(pygame.sprite.Sprite):
     def __init__(self, screen):
         super(Ino, self).__init__()
         self.screen = screen
-        self.image = pygame.image.load('image/inop.png')
+        self.image = pygame.image.load('image/ino.png')
         self.rect = self.image.get_rect()
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height
