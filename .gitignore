@@ -2,3 +2,4 @@
 highscore.txt
 /__pycache__
 highscore.db
+/utils/__pycache__

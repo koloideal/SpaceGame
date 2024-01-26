@@ -1,9 +1,9 @@
 import pygame
 import sys
-from bullet import Bullet
-from ino import Ino
+from utils.bullet import Bullet
+from utils.ino import Ino
 import time
-from database import push_score
+from utils.database import push_score
 
 
 def events(screen, gun, bullets):
@@ -112,7 +112,7 @@ def check_high_score(stats, sc):
     if stats.score > stats.high_score:
         stats.high_score = stats.score
         sc.image_high_score()
-        with open('highscore.txt', 'w') as f:
+        with open('DataBase/highscore.txt', 'w') as f:
             f.write(str(stats.high_score))
             push_score(stats.high_score)
 

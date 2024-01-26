@@ -1,9 +1,9 @@
 import pygame
-from gun import Gun
-import controls
+from utils.gun import Gun
+from utils import controls
 from pygame.sprite import Group
-from stats import Stats
-from scores import Scores
+from utils.stats import Stats
+from utils.scores import Scores
 
 
 def run():

@@ -1,4 +1,4 @@
-from database import pull_score
+from utils.database import pull_score
 
 
 class Stats():

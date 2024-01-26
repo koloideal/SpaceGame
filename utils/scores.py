@@ -1,5 +1,5 @@
 import pygame.font
-from gun import Gun
+from utils.gun import Gun
 from pygame.sprite import Group
 
 

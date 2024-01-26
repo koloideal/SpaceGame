@@ -6,7 +6,7 @@ name = socket.gethostname().strip()
 
 def push_score(score):
 
-    connection = sqlite3.connect('highscore.db')
+    connection = sqlite3.connect('DataBase/highscore.db')
     cursor = connection.cursor()
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS players (name, score INTEGER) ''')
@@ -30,7 +30,7 @@ def push_score(score):
 
 def pull_score():
 
-    connection = sqlite3.connect('highscore.db')
+    connection = sqlite3.connect('DataBase/highscore.db')
     cursor = connection.cursor()
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS players (name PRIMARY KEY, score INTEGER) ''')
